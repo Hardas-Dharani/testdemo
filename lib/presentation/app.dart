@@ -18,7 +18,7 @@ class App extends StatelessWidget {
       getPages: [
         GetPage(
           name: Routes.initialRoute,
-          page: () => const CountryListView(),
+          page: () => CountryListView(),
           binding: CountryBinding(),
         ),
       ],

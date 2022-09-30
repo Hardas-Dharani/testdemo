@@ -1,19 +1,20 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:testdemo/data/countryListModel.dart';
 import 'package:testdemo/repositories/country_repository.dart';
 
 class CountryController extends GetxController {
   List<CountryListResponse> countryListResponse = [];
   Timer? timer;
-  RefreshController refreshController =
-      RefreshController(initialRefresh: false);
+  final Key linkKey = GlobalKey();
+
+  final ScrollController scrollController = ScrollController();
   @override
   void onInit() async {
     getCountry();
-
+    scrollController.addListener(() {});
     super.onInit();
   }
 
@@ -40,7 +41,7 @@ class CountryController extends GetxController {
     try {
       countryListResponse = [];
       countryListResponse = await CountryRepositoryIml().getCountryList();
-      refreshController.refreshCompleted();
+
       update();
     } catch (e) {
       rethrow;
